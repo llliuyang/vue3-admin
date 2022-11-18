@@ -7,13 +7,20 @@
       class-name="custom-class"
       @click="handleClick"
     ></svg-icon>
+
+    <el-button type="primary">按钮</el-button>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+// eslint-disable-next-line
+const { proxy } = getCurrentInstance()!
 const handleClick = () => {
-  alert("Good Job!")
+  proxy?.$message.success("恭喜你，这是一条成功消息")
 }
+// const handleClick = () => {
+//   alert("Good Job!")
+// }
 </script>
 
 <style>
