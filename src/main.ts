@@ -8,8 +8,12 @@ import { createPinia } from "pinia"
 import "normalize.css/normalize.css"
 // 全局css
 import "@/styles/index.scss"
+// 引入svg注册脚本
+import "virtual:svg-icons-register"
+import initSvgIcon from "@/icons/index"
 
 const app = createApp(App)
 app.use(createPinia())
 app.use(Router)
+app.use(initSvgIcon)
 app.mount("#app")
