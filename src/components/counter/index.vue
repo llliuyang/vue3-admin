@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="handleClick">计数器</button>
+    <el-button type="primary" @click="handleClick">计数器</el-button>
     <span>{{ counter.count }}</span>
   </div>
 </template>
