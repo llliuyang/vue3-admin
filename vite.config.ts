@@ -20,6 +20,7 @@ export default defineConfig({
     AutoImport({
       imports: ["vue", "vue-router"], // 顺便自动导入 vue vue-router
       resolvers: [ElementPlusResolver()],
+      eslintrc: { enabled: false }, // 改成true生成一次后禁用即可
       dts: "src/auto-import.d.ts" // 生成的全局变量放到此目录下
     }),
     Components({

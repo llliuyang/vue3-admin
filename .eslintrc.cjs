@@ -11,6 +11,7 @@ module.exports = {
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended", // typescript 规则
     "@vue/prettier",
+    "./.eslintrc-auto-import.json",
   ],
   overrides: [],
   // "parser": "@typescript-eslint/parser",
@@ -35,5 +36,6 @@ module.exports = {
         endOfLine: "auto",
       },
     ],
+    "@typescript-eslint/no-non-null-assertion": "off",
   },
 };

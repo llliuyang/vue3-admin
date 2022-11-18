@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-// eslint-disable-next-line
 const { proxy } = getCurrentInstance()!
 const handleClick = () => {
   proxy?.$message.success("恭喜你，这是一条成功消息")
