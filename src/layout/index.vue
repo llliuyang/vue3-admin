@@ -1,6 +1,8 @@
 <template>
   <div class="app-wrapper">
-    <div class="sidebar-container">侧边栏</div>
+    <div class="sidebar-container">
+      <sidebar></sidebar>
+    </div>
     <div class="main-container">
       <div class="header">
         <div class="navbar">菜单栏</div>
