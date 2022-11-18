@@ -23,6 +23,7 @@ module.exports = {
   plugins: ["vue", "@typescript-eslint"],
   rules: {
     // 自定义的规则写在这里
+    "vue/multi-word-component-names": "off", // 关闭组件命名警告
     "prettier/prettier": [
       "error",
       {
