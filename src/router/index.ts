@@ -44,7 +44,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: "/system/user",
     meta: {
       title: "System",
-      icon: "Lock"
+      icon: "lock"
     },
     children: [
       {
@@ -54,7 +54,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
         meta: {
           title: "User Management",
-          icon: "list"
+          icon: "user"
         }
       },
       {
@@ -72,7 +72,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "role" */ "@/views/system/role.vue"),
         meta: {
           title: "Role Management",
-          icon: "list"
+          icon: "people"
         }
       }
     ]
@@ -93,7 +93,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
             /* webpackChunkName: 'dashboard' */ "@/views/dashboard/index.vue"
           ),
         meta: {
-          title: "Dashboard" // 需要配置声明文件否则无提示
+          title: "Dashboard", // 需要配置声明文件否则无提示
+          icon: "dashboard"
         }
       }
     ]
