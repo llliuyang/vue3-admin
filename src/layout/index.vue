@@ -8,13 +8,14 @@
         <div class="navbar">菜单栏</div>
         <div class="tags-view">标签栏</div>
       </div>
-      <div class="app-main">
-        <h2>主体</h2>
-        <router-view></router-view>
-      </div>
+      <app-main></app-main>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import AppMain from "@/layout/components/AppMain.vue"
+</script>
 
 <style lang="scss" scoped>
 .app-wrapper {
@@ -25,6 +26,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     .header {
       background: cyan;
       .navbar {
@@ -39,7 +41,7 @@
     .app-main {
       /* main = 100% - navbar + tagsview */
       min-height: calc(100vh - 84px);
-      background: red;
+      background: darkcyan;
     }
   }
 }

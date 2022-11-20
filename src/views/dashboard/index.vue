@@ -9,6 +9,8 @@
     ></svg-icon>
 
     <el-button type="primary">按钮</el-button>
+
+    缓存测试 <input type="text" />
   </div>
 </template>
 
