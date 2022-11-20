@@ -16,7 +16,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
           ),
         meta: {
           title: "Documentation",
-          icon: "documentation"
+          icon: "documentation",
+          hidden: true
         }
       }
     ]
@@ -54,7 +55,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
         meta: {
           title: "User Management",
-          icon: "user"
+          icon: "user",
+          hidden: true
         }
       },
       {

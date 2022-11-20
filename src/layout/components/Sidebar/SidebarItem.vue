@@ -2,23 +2,28 @@
   <!--  根据 route.meta.hidden 属性进行筛选，将 hidden 为 true 的筛选出去 不渲染 -->
   <div class="sidebar-item-container" v-if="!item.meta || !item.meta.hidden">
     <!-- 如果有一个孩子，或者没孩子，或者有一个孩子但是被hidden了 -->
-    <sidebar-item-link
-      v-if="theOnlyOneChildRoute"
-      :to="resolvePath(theOnlyOneChildRoute.path)"
+    <template
+      v-if="
+        theOnlyOneChildRoute &&
+        (!theOnlyOneChildRoute.children ||
+          theOnlyOneChildRoute.noShowingChildren)
+      "
     >
       <!-- 如果没有meta属性意味着不必渲染了 -->
-      <el-menu-item
-        :index="resolvePath(theOnlyOneChildRoute.path)"
+      <sidebar-item-link
         v-if="theOnlyOneChildRoute.meta"
+        :to="resolvePath(theOnlyOneChildRoute.path)"
       >
-        <el-icon v-if="icon">
-          <svg-icon class="menu-icon" :icon-class="icon"></svg-icon>
-        </el-icon>
-        <template #title>
-          <span>{{ theOnlyOneChildRoute.meta?.title }}</span>
-        </template>
-      </el-menu-item>
-    </sidebar-item-link>
+        <el-menu-item :index="resolvePath(theOnlyOneChildRoute.path)">
+          <el-icon v-if="icon">
+            <svg-icon class="menu-icon" :icon-class="icon"></svg-icon>
+          </el-icon>
+          <template #title>
+            <span>{{ theOnlyOneChildRoute.meta?.title }}</span>
+          </template>
+        </el-menu-item>
+      </sidebar-item-link>
+    </template>
     <!-- 多个子路由时 -->
     <el-sub-menu v-else :index="resolvePath(item.path)" popper-append-to-body>
       <template #title>
@@ -71,7 +76,9 @@ const showingChildNumber = computed(() => {
 // 要渲染的单个路由 如果该路由只有一个子路由 默认直接渲染这个子路由
 // theOnlyOneChildRoute直接通过el-menu-item组件来渲染
 const { item } = toRefs(props)
-const theOnlyOneChildRoute = computed(() => {
+const theOnlyOneChildRoute = computed<
+  (RouteRecordRaw & { noShowingChildren?: boolean }) | null
+>(() => {
   // 多个children时 直接return null 多children需要用el-submenu来渲染并递归
   if (showingChildNumber.value > 1) {
     return null
@@ -92,7 +99,8 @@ const theOnlyOneChildRoute = computed(() => {
   // 无可渲染children时 把当前路由item作为仅有的子路由渲染
   return {
     ...props.item,
-    path: "" // resolvePath避免resolve拼接时 拼接重复
+    path: "", // resolvePath避免resolve拼接时 拼接重复
+    noShowingChildren: true
   }
 })
 
