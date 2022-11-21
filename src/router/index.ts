@@ -34,7 +34,8 @@ const asyncRoutes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "guide" */ "@/views/guide/index.vue"),
         meta: {
           title: "Guide",
-          icon: "guide"
+          icon: "guide",
+          activeMenu: "/dashboard" // 加载guide时，dashboard高亮
         }
       }
     ]
@@ -61,7 +62,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: "menu",
+        path: "/menu",
         component: () =>
           import(/* webpackChunkName: "menu" */ "@/views/system/menu.vue"),
         meta: {
