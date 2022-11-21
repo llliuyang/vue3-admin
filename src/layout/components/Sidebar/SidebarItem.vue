@@ -2,13 +2,7 @@
   <!--  根据 route.meta.hidden 属性进行筛选，将 hidden 为 true 的筛选出去 不渲染 -->
   <div class="sidebar-item-container" v-if="!item.meta || !item.meta.hidden">
     <!-- 如果有一个孩子，或者没孩子，或者有一个孩子但是被hidden了 -->
-    <template
-      v-if="
-        theOnlyOneChildRoute &&
-        (!theOnlyOneChildRoute.children ||
-          theOnlyOneChildRoute.noShowingChildren)
-      "
-    >
+    <template v-if="theOnlyOneChildRoute && !alwaysShowRootMenu">
       <!-- 如果没有meta属性意味着不必渲染了 -->
       <sidebar-item-link
         v-if="theOnlyOneChildRoute.meta"
@@ -102,6 +96,11 @@ const theOnlyOneChildRoute = computed<
     path: "", // resolvePath避免resolve拼接时 拼接重复
     noShowingChildren: true
   }
+})
+
+// alwaysShow开启后，总是展示父级菜单
+const alwaysShowRootMenu = computed(() => {
+  return props.item.meta && props.item.meta.alwaysShow
 })
 
 // menu icon
