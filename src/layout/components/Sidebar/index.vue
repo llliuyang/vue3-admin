@@ -1,10 +1,9 @@
 <template>
-  <div style="color: white" @click="isCollapse = !isCollapse">展收测试</div>
   <el-menu
     class="sidebar-container-menu"
     mode="vertical"
     :default-active="activeMenu"
-    :collapse="isCollapse"
+    :collapse="!sidebar.opened"
     :collapse-transition="true"
     :background-color="scssVariables.menuBg"
     :text-color="scssVariables.menuText"
@@ -24,8 +23,12 @@ import scssVariables from "@/styles/variables.module.scss"
 import SidebarItem from "@/layout/components/Sidebar/SidebarItem.vue"
 // 导入路由表
 import { routes } from "@/router"
+import { useAppStore } from "@/stores/app"
+import { storeToRefs } from "pinia"
 
-const isCollapse = ref(false)
+const store = useAppStore()
+const { sidebar } = storeToRefs(store)
+
 const route = useRoute()
 // 根据路由路径 对应 当前激活的菜单 页面刷新后 激活当前路由匹配的菜单
 const activeMenu = computed(() => {

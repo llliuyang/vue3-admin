@@ -5,7 +5,7 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <div class="navbar">菜单栏</div>
+        <navbar></navbar>
         <div class="tags-view">标签栏</div>
       </div>
       <app-main></app-main>
@@ -15,6 +15,7 @@
 
 <script lang="ts" setup>
 import AppMain from "@/layout/components/AppMain.vue"
+import Navbar from "@/layout/components/Navbar.vue"
 </script>
 
 <style lang="scss" scoped>
