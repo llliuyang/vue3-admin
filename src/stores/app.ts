@@ -15,6 +15,7 @@ export const useAppStore = defineStore(
       state.sidebar.opened = !state.sidebar.opened
     }
     return {
+      state, // 需要导出响应式数据，persist 插件才会存储
       sidebar,
       toggleSidebar
     }
