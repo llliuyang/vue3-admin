@@ -3,6 +3,7 @@ import "./style.css"
 import App from "./App.vue"
 import Router from "./router/index"
 import { createPinia } from "pinia"
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
 
 // 初始化css，重置css默认样式
 import "normalize.css/normalize.css"
@@ -15,8 +16,11 @@ import initSvgIcon from "@/icons/index"
 // 注册element-plus
 import installElementPlus from "./plugins/element"
 
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 const app = createApp(App)
-app.use(createPinia())
+app.use(pinia)
 app.use(Router)
 // 安装element-plus插件
 app.use(installElementPlus)
