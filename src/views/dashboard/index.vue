@@ -11,6 +11,12 @@
     <el-button type="primary">按钮</el-button>
 
     缓存测试 <input type="text" />
+
+    <el-date-picker
+      placeholder="Pick a day"
+      type="date"
+      v-model="date"
+    ></el-date-picker>
   </div>
 </template>
 
@@ -22,6 +28,7 @@ const handleClick = () => {
 // const handleClick = () => {
 //   alert("Good Job!")
 // }
+const date = ref()
 </script>
 
 <style>

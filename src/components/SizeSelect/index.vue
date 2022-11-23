@@ -1,5 +1,5 @@
 <template>
-  <el-dropdown trigger="click" @command="handleSize">
+  <el-dropdown trigger="click" @command="handleSize" size="large">
     <div>
       <svg-icon class-name="size-icon" icon-class="size"></svg-icon>
     </div>
@@ -11,6 +11,7 @@
           :command="item.value"
           :disabled="size === item.value"
         >
+          {{ item.label }}
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
