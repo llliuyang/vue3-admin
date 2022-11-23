@@ -51,7 +51,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: "/user",
+        path: "user",
         name: "User",
         component: () =>
           import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
@@ -62,7 +62,7 @@ const asyncRoutes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: "/menu",
+        path: "menu",
         component: () =>
           import(/* webpackChunkName: "menu" */ "@/views/system/menu.vue"),
         meta: {
