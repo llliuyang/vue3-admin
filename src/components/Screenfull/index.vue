@@ -1,9 +1,10 @@
 <template>
-  <svg-icon
-    :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
-    @click="handleClick"
-    class="right-menu-item hover-effect"
-  />
+  <div>
+    <svg-icon
+      :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
+      @click="handleClick"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -35,9 +36,3 @@ onMounted(() => {
   }
 })
 </script>
-
-<style>
-.right-menu-item.hover-effect {
-  cursor: pointer;
-}
-</style>

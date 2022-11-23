@@ -1,8 +1,16 @@
 <template>
-  <router-view></router-view>
+  <el-config-provider :size="size">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAppStore } from "@/stores/app"
+import { storeToRefs } from "pinia"
+
+const store = useAppStore()
+const { size } = storeToRefs(store)
+</script>
 
 <style lang="scss">
 #app {
