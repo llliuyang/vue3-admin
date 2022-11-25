@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppMain: typeof import('./layout/components/AppMain.vue')['default']
+    Avatar: typeof import('./components/Avatar/index.vue')['default']
     Breadcrumb: typeof import('./components/Breadcrumb/index.vue')['default']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']

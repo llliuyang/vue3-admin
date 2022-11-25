@@ -11,6 +11,8 @@
       <el-tooltip content="Global Size" effect="dark" placement="bottom">
         <size-select class="right-menu-item hover-effect"></size-select>
       </el-tooltip>
+
+      <avatar></avatar>
     </div>
   </div>
 </template>
