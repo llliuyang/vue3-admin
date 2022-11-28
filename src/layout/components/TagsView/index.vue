@@ -1,19 +1,21 @@
 <template>
   <div class="tags-view-container">
-    <div class="tags-view-wrapper">
-      <router-link
-        class="tags-view-item"
-        :class="{ active: isActive(tag) }"
-        v-for="(tag, index) in visitedViews"
-        :key="index"
-        :to="{ path: tag.path, query: tag.query }"
-      >
-        <span>{{ tag.meta.title }}</span>
-        <el-icon class="icon-close" v-if="!isAffix(tag)">
-          <CloseBold @click.prevent.stop="closeSelectedTag(tag)"></CloseBold>
-        </el-icon>
-      </router-link>
-    </div>
+    <scroll-panel>
+      <div class="tags-view-wrapper">
+        <router-link
+          class="tags-view-item"
+          :class="{ active: isActive(tag) }"
+          v-for="(tag, index) in visitedViews"
+          :key="index"
+          :to="{ path: tag.path, query: tag.query }"
+        >
+          <span>{{ tag.meta.title }}</span>
+          <el-icon class="icon-close" v-if="!isAffix(tag)">
+            <CloseBold @click.prevent.stop="closeSelectedTag(tag)"></CloseBold>
+          </el-icon>
+        </router-link>
+      </div>
+    </scroll-panel>
   </div>
 </template>
 
@@ -25,6 +27,7 @@ import { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router"
 
 import path from "path-browserify"
 import { routes } from "@/router"
+import ScrollPanel from "@/layout/components/TagsView/ScrollPanel.vue"
 
 const store = useTagsView()
 const route = useRoute()
@@ -127,6 +130,7 @@ onMounted(() => {
   background: #fff;
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  overflow: hidden;
   .tags-view-wrapper {
     height: 100%;
     display: flex;

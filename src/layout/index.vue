@@ -7,7 +7,6 @@
       <div class="header">
         <navbar></navbar>
         <tags-view></tags-view>
-        <!--        <div class="tags-view">标签栏</div>-->
       </div>
       <app-main></app-main>
     </div>
