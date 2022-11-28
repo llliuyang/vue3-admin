@@ -9,7 +9,7 @@
         :to="{ path: tag.path, query: tag.query }"
       >
         <span>{{ tag.meta.title }}</span>
-        <el-icon class="icon-close">
+        <el-icon class="icon-close" v-if="!isAffix(tag)">
           <CloseBold @click.prevent.stop="closeSelectedTag(tag)"></CloseBold>
         </el-icon>
       </router-link>
@@ -21,7 +21,10 @@
 import { CloseBold } from "@element-plus/icons-vue"
 import { useTagsView } from "@/stores/tagsView"
 import { storeToRefs } from "pinia"
-import { RouteLocationNormalizedLoaded } from "vue-router"
+import { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router"
+
+import path from "path-browserify"
+import { routes } from "@/router"
 
 const store = useTagsView()
 const route = useRoute()
@@ -75,6 +78,46 @@ const toLastView = (
     }
   }
 }
+
+const filterAffixTags = (routes: RouteRecordRaw[], basePath = "/") => {
+  let tags: RouteLocationNormalizedLoaded[] = []
+  routes.forEach((route) => {
+    if (route.meta && route.meta.affix) {
+      // 把路由路径解析成完整路径，路由可能是相对路径
+      const tagPath = path.resolve(basePath, route.path)
+      tags.push({
+        name: route.name,
+        path: tagPath,
+        meta: { ...route.meta }
+      } as RouteLocationNormalizedLoaded)
+    }
+    // 深度优先遍历 子路由（子路由路径可能相对于route.path父路由路径）
+    if (route.children) {
+      const childTags = filterAffixTags(route.children, route.path)
+      if (childTags.length) {
+        tags = [...tags, ...childTags]
+      }
+    }
+  })
+  return tags
+}
+
+const initTags = () => {
+  const affixTags = filterAffixTags(routes)
+  for (const tag of affixTags) {
+    if (tag.name) {
+      store.addView(tag)
+    }
+  }
+}
+
+const isAffix = (tag: RouteLocationNormalizedLoaded) => {
+  return tag.meta && tag.meta.affix
+}
+
+onMounted(() => {
+  initTags()
+})
 </script>
 
 <style lang="scss" scoped>

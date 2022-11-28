@@ -113,7 +113,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
           ),
         meta: {
           title: "Dashboard", // 需要配置声明文件否则无提示
-          icon: "dashboard"
+          icon: "dashboard",
+          affix: true
         }
       }
     ]
