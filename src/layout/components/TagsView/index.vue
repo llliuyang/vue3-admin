@@ -25,6 +25,7 @@ import { RouteLocationNormalizedLoaded } from "vue-router"
 
 const store = useTagsView()
 const route = useRoute()
+const router = useRouter()
 const { visitedViews } = storeToRefs(store)
 // 添加tag
 const addTags = () => {
@@ -49,6 +50,30 @@ const isActive = (tag: RouteLocationNormalizedLoaded) => {
 // 关闭当前右键的tag
 const closeSelectedTag = (tag: RouteLocationNormalizedLoaded) => {
   store.delView(tag)
+  // 如果移除的view是当前选中状态view, 就让删除后的集合中最后一个tag view为选中态
+  if (isActive(tag)) {
+    toLastView(visitedViews.value, tag)
+  }
+}
+
+const toLastView = (
+  visitedViews: RouteLocationNormalizedLoaded[],
+  view: RouteLocationNormalizedLoaded
+) => {
+  const theLastView = visitedViews.at(-1)
+  // 如果存在最后的view
+  if (theLastView) {
+    router.push(theLastView.path)
+  } else {
+    // 如果集合之中已经没有了view
+    // 如果删除的是Dashboard,就重定向回Dashboard
+    if (view.name === "Dashboard") {
+      router.push({ path: view.path })
+    } else {
+      // 删除的不是Dashboard,跳转到首页 /
+      router.push("/")
+    }
+  }
 }
 </script>
 
