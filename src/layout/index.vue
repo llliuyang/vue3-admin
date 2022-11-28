@@ -6,7 +6,8 @@
     <div class="main-container">
       <div class="header">
         <navbar></navbar>
-        <div class="tags-view">标签栏</div>
+        <tags-view></tags-view>
+        <!--        <div class="tags-view">标签栏</div>-->
       </div>
       <app-main></app-main>
     </div>
@@ -14,8 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import AppMain from "@/layout/components/AppMain.vue"
-import Navbar from "@/layout/components/Navbar.vue"
+// import AppMain from "@/layout/components/AppMain.vue"
+// import Navbar from "@/layout/components/Navbar.vue"
+// import Sidebar from "@/layout/components/Sidebar/index.vue"
+// import TagsView from "@/layout/components/TagsView/index.vue"
 </script>
 
 <style lang="scss" scoped>
