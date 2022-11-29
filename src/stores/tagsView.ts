@@ -1,5 +1,9 @@
 import { defineStore } from "pinia"
-import { RouteLocationNormalizedLoaded } from "vue-router"
+import {
+  RouteLocationNormalized,
+  RouteLocationNormalizedLoaded,
+  RouteRecordName
+} from "vue-router"
 
 export const useTagsView = defineStore("tag", () => {
   const visitedViews = ref<RouteLocationNormalizedLoaded[]>([])
@@ -11,6 +15,7 @@ export const useTagsView = defineStore("tag", () => {
     visitedViews.value.push(
       Object.assign({}, view, { title: view.meta?.title || "tag-name" })
     )
+    addCachedView(view)
   }
   // 删除视图
   const delView = (view: RouteLocationNormalizedLoaded) => {
@@ -18,7 +23,31 @@ export const useTagsView = defineStore("tag", () => {
     if (i > -1) {
       visitedViews.value.splice(i, 1)
     }
+    delCachedView(view)
   }
 
-  return { visitedViews, addView, delView }
+  // 缓存
+  const cachedViews = ref<RouteRecordName[]>([])
+  // 添加缓存
+  const addCachedView = (view: RouteLocationNormalized) => {
+    if (cachedViews.value.includes(view.name!)) return
+    if (!view.meta.noCache) {
+      // 需要缓存
+      cachedViews.value.push(view.name!)
+    }
+  }
+  // 删除缓存
+  const delCachedView = (view: RouteLocationNormalized) => {
+    const i = cachedViews.value.indexOf(view.name!)
+    i > -1 && cachedViews.value.splice(i, 1)
+  }
+
+  return {
+    visitedViews,
+    addView,
+    delView,
+    cachedViews,
+    addCachedView,
+    delCachedView
+  }
 })

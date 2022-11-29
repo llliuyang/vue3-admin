@@ -8,6 +8,8 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 // 自动导入element-plus样式
 import ElementPlus from "unplugin-element-plus/vite"
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
+
+import DefineOptions from "unplugin-vue-define-options/vite"
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -38,6 +40,7 @@ export default defineConfig({
       inject: "body-last",
       customDomId: "_svg_icons_dom_"
     }),
-    ElementPlus()
+    ElementPlus(),
+    DefineOptions()
   ]
 })

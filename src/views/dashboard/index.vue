@@ -21,13 +21,13 @@
 </template>
 
 <script setup lang="ts">
+import { defineOptions } from "unplugin-vue-define-options/macros"
+
+defineOptions({ name: "Dashboard" })
 const { proxy } = getCurrentInstance()!
 const handleClick = () => {
   proxy?.$message.success("恭喜你，这是一条成功消息")
 }
-// const handleClick = () => {
-//   alert("Good Job!")
-// }
 const date = ref()
 </script>
 
