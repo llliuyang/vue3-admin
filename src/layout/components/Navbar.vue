@@ -3,10 +3,12 @@
     <hambuger @toggleClick="toggleSidebar" :is-active="sidebar.opened" />
     <breadcrumb></breadcrumb>
     <div class="right-menu">
-      <screenfull
-        ref="screenRef"
-        class="right-menu-item hover-effect"
-      ></screenfull>
+      <el-tooltip :content="screenfullTipContent" effect="dark">
+        <screenfull
+          ref="screenfullRef"
+          class="right-menu-item hover-effect"
+        ></screenfull>
+      </el-tooltip>
 
       <el-tooltip content="Global Size" effect="dark" placement="bottom">
         <size-select class="right-menu-item hover-effect"></size-select>
@@ -20,12 +22,21 @@
 <script lang="ts" setup>
 import { useAppStore } from "@/stores/app"
 import { storeToRefs } from "pinia"
+import { Ref } from "vue"
 
 const store = useAppStore()
 const { sidebar } = storeToRefs(store)
 const toggleSidebar = () => {
   store.toggleSidebar()
 }
+const screenfullRef: Ref = ref(null)
+let screenfullTipContent: Ref<string> = ref("")
+watch(
+  () => screenfullRef.value?.isFullscreen,
+  (val) => {
+    screenfullTipContent.value = val ? "Exit Fullscreen" : "Fullscreen"
+  }
+)
 </script>
 
 <style lang="scss" scoped>

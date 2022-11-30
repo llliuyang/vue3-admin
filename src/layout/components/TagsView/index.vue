@@ -15,12 +15,6 @@
             @command="(command:any)=>handleTagCommand(command,tag)"
           >
             <span style="line-height: 26px">{{ tag.meta.title }}</span>
-            <!--            affix固定的路由tag无法删除-->
-            <span
-              v-if="!isAffix(tag)"
-              class="el-icon-close"
-              @click.prevent.stop="closeSelectedTag(tag)"
-            ></span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="all">关闭所有</el-dropdown-item>

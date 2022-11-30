@@ -35,4 +35,6 @@ onMounted(() => {
     screenfull.on("change", change)
   }
 })
+
+defineExpose({ isFullscreen })
 </script>

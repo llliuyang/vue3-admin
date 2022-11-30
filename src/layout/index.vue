@@ -31,20 +31,19 @@
     flex-direction: column;
     overflow: hidden;
     .header {
-      background: cyan;
       .navbar {
         height: 50px;
-        background: #1890ff;
+        background: #f2f2f2;
       }
-      .tags-view {
+      .tags-view-container {
         height: 34px;
-        background: #12efff;
+        background: #f8f8f8;
       }
     }
     .app-main {
       /* main = 100% - navbar + tagsview */
       min-height: calc(100vh - 84px);
-      background: darkcyan;
+      background: #f2f2f2;
     }
   }
 }
