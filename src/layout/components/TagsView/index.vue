@@ -9,7 +9,30 @@
           :key="index"
           :to="{ path: tag.path, query: tag.query }"
         >
-          <span>{{ tag.meta.title }}</span>
+          <!--          右键菜单-->
+          <el-dropdown
+            trigger="contextmenu"
+            @command="(command:any)=>handleTagCommand(command,tag)"
+          >
+            <span style="line-height: 26px">{{ tag.meta.title }}</span>
+            <!--            affix固定的路由tag无法删除-->
+            <span
+              v-if="!isAffix(tag)"
+              class="el-icon-close"
+              @click.prevent.stop="closeSelectedTag(tag)"
+            ></span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="all">关闭所有</el-dropdown-item>
+                <el-dropdown-item command="other">关闭其它</el-dropdown-item>
+                <el-dropdown-item command="self" v-if="!isAffix(tag)"
+                  >关闭</el-dropdown-item
+                >
+                <el-dropdown-item command="refresh">刷新</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <!--          关闭icon-->
           <el-icon class="icon-close" v-if="!isAffix(tag)">
             <CloseBold @click.prevent.stop="closeSelectedTag(tag)"></CloseBold>
           </el-icon>
@@ -23,7 +46,11 @@
 import { CloseBold } from "@element-plus/icons-vue"
 import { useTagsView } from "@/stores/tagsView"
 import { storeToRefs } from "pinia"
-import { RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router"
+import {
+  RouteLocationNormalized,
+  RouteLocationNormalizedLoaded,
+  RouteRecordRaw
+} from "vue-router"
 
 import path from "path-browserify"
 import { routes } from "@/router"
@@ -121,6 +148,55 @@ const isAffix = (tag: RouteLocationNormalizedLoaded) => {
 onMounted(() => {
   initTags()
 })
+
+// 右键菜单
+const enum TagCommandType {
+  All = "all",
+  Other = "other",
+  Self = "self",
+  Refresh = "refresh"
+}
+const handleTagCommand = (
+  command: TagCommandType,
+  view: RouteLocationNormalized
+) => {
+  switch (command) {
+    case TagCommandType.All:
+      closeAllTag(view)
+      break
+    case TagCommandType.Other:
+      closeOtherTag(view)
+      break
+    case TagCommandType.Self:
+      closeSelectedTag(view)
+      break
+    case TagCommandType.Refresh:
+      refreshSelectedTag(view)
+      break
+  }
+}
+
+const closeAllTag = (view: RouteLocationNormalized) => {
+  store.delAllViews()
+  // 关闭所有后，只剩下固定的，让视图切换到最后固定的
+  toLastView(visitedViews.value, view)
+}
+
+const closeOtherTag = (view: RouteLocationNormalized) => {
+  store.delOtherViews(view)
+  // 如果当前不是激活的，关闭其他后，就激活当前view路由
+  if (!isActive(view)) {
+    router.push(view.path)
+  }
+}
+
+const refreshSelectedTag = (view: RouteLocationNormalized) => {
+  // 刷新之前，将该路由名称从缓存列表中删除
+  store.delCachedView(view)
+  // router.push(view.path) 是无法刷新页面的，因为页面没有任何变化
+  // 跳转到重定向路由来解决
+  router.push("/redirect" + view.path)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -167,6 +243,9 @@ onMounted(() => {
           border-radius: 50%;
           margin-right: 5px;
           background: #fff;
+        }
+        .el-dropdown {
+          color: #fff;
         }
       }
     }

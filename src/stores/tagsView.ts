@@ -41,13 +41,25 @@ export const useTagsView = defineStore("tag", () => {
     const i = cachedViews.value.indexOf(view.name!)
     i > -1 && cachedViews.value.splice(i, 1)
   }
-
+  // 关闭视图也要删除相应的缓存
+  const delAllViews = () => {
+    visitedViews.value = visitedViews.value.filter((tag) => tag.meta.affix) // 只保留固定的标签
+    cachedViews.value = [] // 清空缓存
+  }
+  const delOtherViews = (view: RouteLocationNormalized) => {
+    visitedViews.value = visitedViews.value.filter(
+      (tag) => tag.meta.affix || tag.path === view.path // 保留自己和固定的，其它删除
+    )
+    cachedViews.value = cachedViews.value.filter((name) => name !== view.name) // 保留自己的缓存，其它删除
+  }
   return {
     visitedViews,
     addView,
     delView,
     cachedViews,
     addCachedView,
-    delCachedView
+    delCachedView,
+    delAllViews,
+    delOtherViews
   }
 })

@@ -119,6 +119,28 @@ const constantRoutes: Array<RouteRecordRaw> = [
         }
       }
     ]
+  },
+  {
+    path: "/redirect", // 重定向路由
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        //  带参数的动态路由正则匹配 文档说明
+        // https://router.vuejs.org/zh/guide/essentials/route-matching-syntax.html
+        path: "/redirect/:path(.*)", // 要匹配多级路由 应该加*号
+        component: () => import("@/views/redirect/index.vue")
+      }
+    ]
+  },
+  {
+    path: "/404",
+    component: () => import("@/views/error-pages/404.vue"),
+    meta: {
+      hidden: true
+    }
   }
 ]
 
