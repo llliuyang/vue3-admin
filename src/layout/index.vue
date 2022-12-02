@@ -5,19 +5,28 @@
     </div>
     <div class="main-container">
       <div class="header">
-        <navbar></navbar>
+        <navbar @showSetting="openSetting"></navbar>
         <tags-view></tags-view>
       </div>
       <app-main></app-main>
     </div>
+    <!--    右侧抽屉面板-->
+    <right-panel
+      v-model="showSetting"
+      title="样式风格设置"
+      :size="settingsPanelWidth"
+    >
+    </right-panel>
   </div>
 </template>
 
 <script lang="ts" setup>
-// import AppMain from "@/layout/components/AppMain.vue"
-// import Navbar from "@/layout/components/Navbar.vue"
-// import Sidebar from "@/layout/components/Sidebar/index.vue"
-// import TagsView from "@/layout/components/TagsView/index.vue"
+import variables from "@/styles/variables.module.scss"
+const showSetting = ref(false)
+const openSetting = () => {
+  showSetting.value = true
+}
+const settingsPanelWidth = computed(() => variables.settingPanelWidth)
 </script>
 
 <style lang="scss" scoped>

@@ -35,7 +35,6 @@ const logout = () => {
 
 <style lang="scss" scoped>
 .avatar-container {
-  margin-right: 30px;
   .avatar-wrapper {
     margin-top: 5px;
     .user-avatar {
