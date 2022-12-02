@@ -8,6 +8,10 @@
           v-for="(tag, index) in visitedViews"
           :key="index"
           :to="{ path: tag.path, query: tag.query }"
+          :style="{
+            backgroundColor: isActive(tag) ? themeColor : '',
+            borderColor: isActive(tag) ? themeColor : ''
+          }"
         >
           <!--          右键菜单-->
           <el-dropdown
@@ -49,11 +53,15 @@ import {
 import path from "path-browserify"
 import { routes } from "@/router"
 import ScrollPanel from "@/layout/components/TagsView/ScrollPanel.vue"
+import { useSettingsStore } from "@/stores/settings"
 
 const store = useTagsView()
 const route = useRoute()
 const router = useRouter()
 const { visitedViews } = storeToRefs(store)
+// 应用主题色
+const settingStore = useSettingsStore()
+const themeColor = computed(() => settingStore.settings.theme)
 // 添加tag
 const addTags = () => {
   const { name } = route

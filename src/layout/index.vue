@@ -16,6 +16,7 @@
       title="样式风格设置"
       :size="settingsPanelWidth"
     >
+      <settings />
     </right-panel>
   </div>
 </template>

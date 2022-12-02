@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
@@ -32,11 +33,13 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Screenfull: typeof import('./components/Screenfull/index.vue')['default']
     ScrollPanel: typeof import('./layout/components/TagsView/ScrollPanel.vue')['default']
+    Settings: typeof import('./layout/components/Settings/index.vue')['default']
     Sidebar: typeof import('./layout/components/Sidebar/index.vue')['default']
     SidebarItem: typeof import('./layout/components/Sidebar/SidebarItem.vue')['default']
     SidebarItemLink: typeof import('./layout/components/Sidebar/SidebarItemLink.vue')['default']
     SizeSelect: typeof import('./components/SizeSelect/index.vue')['default']
     SvgIcon: typeof import('./components/SvgIcon/index.vue')['default']
     TagsView: typeof import('./layout/components/TagsView/index.vue')['default']
+    ThemePicker: typeof import('./components/ThemePicker/index.vue')['default']
   }
 }

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import variables from "@/styles/variables.module.scss"
 
-export const useSettingStore = defineStore(
+export const useSettingsStore = defineStore(
   "settings",
   () => {
     // theme是用户选择的主题

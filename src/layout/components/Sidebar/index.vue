@@ -7,7 +7,7 @@
     :collapse-transition="true"
     :background-color="scssVariables.menuBg"
     :text-color="scssVariables.menuText"
-    :active-text-color="scssVariables.menuActiveText"
+    :active-text-color="themeColor"
   >
     <sidebar-item
       v-for="route in menuRoutes"
@@ -25,6 +25,7 @@ import SidebarItem from "@/layout/components/Sidebar/SidebarItem.vue"
 import { routes } from "@/router"
 import { useAppStore } from "@/stores/app"
 import { storeToRefs } from "pinia"
+import { useSettingsStore } from "@/stores/settings"
 
 const store = useAppStore()
 const { sidebar } = storeToRefs(store)
@@ -38,4 +39,8 @@ const activeMenu = computed(() => {
 })
 // 渲染路由
 const menuRoutes = computed(() => routes)
+
+// 应用主题色
+const settingStore = useSettingsStore()
+const themeColor = computed(() => settingStore.settings.theme)
 </script>
