@@ -6,7 +6,7 @@
     <div class="main-container">
       <div class="header">
         <navbar @showSetting="openSetting"></navbar>
-        <tags-view></tags-view>
+        <tags-view v-if="showTagsView"></tags-view>
       </div>
       <app-main></app-main>
     </div>
@@ -23,11 +23,16 @@
 
 <script lang="ts" setup>
 import variables from "@/styles/variables.module.scss"
+import { useSettingsStore } from "@/stores/settings"
 const showSetting = ref(false)
 const openSetting = () => {
   showSetting.value = true
 }
 const settingsPanelWidth = computed(() => variables.settingPanelWidth)
+
+const settingsStore = useSettingsStore()
+const showTagsView = computed(() => settingsStore.settings.tagsView)
+const otherHeight = computed(() => (showSetting.value ? 84 : 50) + "px")
 </script>
 
 <style lang="scss" scoped>
@@ -52,7 +57,7 @@ const settingsPanelWidth = computed(() => variables.settingPanelWidth)
     }
     .app-main {
       /* main = 100% - navbar + tagsview */
-      min-height: calc(100vh - 84px);
+      min-height: calc(100vh - v-bind(otherHeight));
       background: #f2f2f2;
     }
   }
