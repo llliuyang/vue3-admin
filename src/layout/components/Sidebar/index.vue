@@ -1,4 +1,5 @@
 <template>
+  <logo v-if="showLogo" :collapse="isCollapse"></logo>
   <el-menu
     class="sidebar-container-menu"
     mode="vertical"
@@ -26,6 +27,7 @@ import { routes } from "@/router"
 import { useAppStore } from "@/stores/app"
 import { storeToRefs } from "pinia"
 import { useSettingsStore } from "@/stores/settings"
+import Logo from "@/layout/components/Sidebar/Logo.vue"
 
 const store = useAppStore()
 const { sidebar } = storeToRefs(store)
@@ -41,6 +43,11 @@ const activeMenu = computed(() => {
 const menuRoutes = computed(() => routes)
 
 // 应用主题色
-const settingStore = useSettingsStore()
-const themeColor = computed(() => settingStore.settings.theme)
+const settingsStore = useSettingsStore()
+const themeColor = computed(() => settingsStore.settings.theme)
+
+// logo
+const showLogo = computed(() => settingsStore.settings.sidebarLogo)
+// sidebar opened就是非折叠
+const isCollapse = computed(() => !store.sidebar.opened)
 </script>

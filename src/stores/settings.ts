@@ -9,7 +9,8 @@ export const useSettingsStore = defineStore(
     const settings = reactive({
       theme: variables.theme,
       originalTheme: "",
-      tagsView: true
+      tagsView: true,
+      sidebarLogo: true
     })
     type ISettings = typeof settings
     type Valueof<T> = T[keyof T]
@@ -30,7 +31,7 @@ export const useSettingsStore = defineStore(
   {
     persist: {
       storage: window.sessionStorage,
-      paths: ["settings.theme", "settings.tagsView"]
+      paths: ["settings.theme", "settings.tagsView", "settings.sidebarLogo"]
     }
   }
 )

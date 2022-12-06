@@ -4,10 +4,15 @@
       <span>主题色</span>
       <theme-picker></theme-picker>
     </div>
-
+    <!--tagsView标签开关-->
     <div class="drawer-item">
       <span>Open TagsView</span>
       <el-switch v-model="tagsView" class="drawer-switch"> </el-switch>
+    </div>
+    <!--    侧边栏logo-->
+    <div class="drawer-item">
+      <span>Sidebar Logo</span>
+      <el-switch v-model="showSidebarLogo" class="drawer-switch"> </el-switch>
     </div>
   </div>
 </template>
@@ -24,6 +29,18 @@ const tagsView = computed({
   set(val) {
     settingsStore.changeSetting({
       key: "tagsView",
+      value: val
+    })
+  }
+})
+
+const showSidebarLogo = computed({
+  get() {
+    return settingsStore.settings.sidebarLogo
+  },
+  set(val) {
+    settingsStore.changeSetting({
+      key: "sidebarLogo",
       value: val
     })
   }
