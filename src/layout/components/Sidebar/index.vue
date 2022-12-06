@@ -1,22 +1,26 @@
 <template>
-  <logo v-if="showLogo" :collapse="isCollapse"></logo>
-  <el-menu
-    class="sidebar-container-menu"
-    mode="vertical"
-    :default-active="activeMenu"
-    :collapse="!sidebar.opened"
-    :collapse-transition="true"
-    :background-color="scssVariables.menuBg"
-    :text-color="scssVariables.menuText"
-    :active-text-color="themeColor"
-  >
-    <sidebar-item
-      v-for="route in menuRoutes"
-      :key="route.path"
-      :item="route"
-      :base-path="route.path"
-    ></sidebar-item>
-  </el-menu>
+  <div class="sidebar-wrapper">
+    <logo v-if="showLogo" :collapse="isCollapse"></logo>
+    <scroll-panel>
+      <el-menu
+        class="sidebar-container-menu"
+        mode="vertical"
+        :default-active="activeMenu"
+        :collapse="!sidebar.opened"
+        :collapse-transition="true"
+        :background-color="scssVariables.menuBg"
+        :text-color="scssVariables.menuText"
+        :active-text-color="themeColor"
+      >
+        <sidebar-item
+          v-for="route in menuRoutes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        ></sidebar-item>
+      </el-menu>
+    </scroll-panel>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -28,6 +32,7 @@ import { useAppStore } from "@/stores/app"
 import { storeToRefs } from "pinia"
 import { useSettingsStore } from "@/stores/settings"
 import Logo from "@/layout/components/Sidebar/Logo.vue"
+import ScrollPanel from "@/components/ScrollPanel/index.vue"
 
 const store = useAppStore()
 const { sidebar } = storeToRefs(store)
@@ -50,4 +55,14 @@ const themeColor = computed(() => settingsStore.settings.theme)
 const showLogo = computed(() => settingsStore.settings.sidebarLogo)
 // sidebar opened就是非折叠
 const isCollapse = computed(() => !store.sidebar.opened)
+
+const logoHeight = computed(() => (showLogo.value ? 50 : 0) + "px")
 </script>
+
+<style lang="scss" scoped>
+.sidebar-wrapper {
+  .sidebar-container-menu {
+    height: calc(100vh - v-bind(logoHeight));
+  }
+}
+</style>

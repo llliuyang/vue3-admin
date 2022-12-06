@@ -34,7 +34,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Screenfull: typeof import('./components/Screenfull/index.vue')['default']
-    ScrollPanel: typeof import('./layout/components/TagsView/ScrollPanel.vue')['default']
+    ScrollPanel: typeof import('./components/ScrollPanel/index.vue')['default']
     Settings: typeof import('./layout/components/Settings/index.vue')['default']
     Sidebar: typeof import('./layout/components/Sidebar/index.vue')['default']
     SidebarItem: typeof import('./layout/components/Sidebar/SidebarItem.vue')['default']

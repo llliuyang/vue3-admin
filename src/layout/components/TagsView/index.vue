@@ -52,7 +52,7 @@ import {
 
 import path from "path-browserify"
 import { routes } from "@/router"
-import ScrollPanel from "@/layout/components/TagsView/ScrollPanel.vue"
+import ScrollPanel from "@/components/ScrollPanel/index.vue"
 import { useSettingsStore } from "@/stores/settings"
 
 const store = useTagsView()
