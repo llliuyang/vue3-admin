@@ -1,13 +1,24 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form
+      class="login-form"
+      :model="loginForm"
+      :rules="loginRules"
+      ref="loginFormRef"
+    >
       <div class="admin-logo">
         <img src="@/assets/vue.svg" alt="logo" class="logo" />
         <h1 class="name">Vue3 Admin</h1>
       </div>
 
       <el-form-item prop="username">
-        <el-input placeholder="请输入用户名">
+        <el-input
+          placeholder="请输入用户名"
+          v-model="loginForm.username"
+          ref="usernameRef"
+          autocomplete="off"
+          tabindex="1"
+        >
           <template #prepend>
             <span class="svg-container">
               <svg-icon icon-class="user"></svg-icon>
@@ -16,12 +27,14 @@
         </el-input>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item prop="password">
         <el-input
-          type="password"
           placeholder="请输入用户名"
-          autocomplete="on"
+          v-model="loginForm.password"
+          ref="passwordRef"
+          autocomplete="off"
           show-password
+          tabindex="2"
         >
           <template #prepend>
             <span class="svg-container">
@@ -43,10 +56,52 @@
 </template>
 
 <script lang="ts" setup>
+import { FormInstance } from "element-plus"
+
 const loading = ref(false)
+const loginFormRef = ref<FormInstance | null>(null)
+const usernameRef = ref<HTMLInputElement | null>(null)
+const passwordRef = ref<HTMLInputElement | null>(null)
+
+const loginState = reactive({
+  loginForm: {
+    username: "",
+    password: ""
+  },
+  loginRules: {
+    username: [
+      {
+        required: true,
+        trigger: "blur",
+        message: "请输入用户名"
+      }
+    ],
+    password: [
+      {
+        required: true,
+        trigger: "blur",
+        message: "请输入密码"
+      }
+    ]
+  }
+})
+
+const { loginForm, loginRules } = toRefs(loginState)
 const handleLogin = () => {
-  console.log("login")
+  loginFormRef.value?.validate((valid) => {
+    if (valid) {
+      console.log(loginForm)
+    }
+  })
 }
+
+onMounted(() => {
+  if (loginState.loginForm.username === "") {
+    usernameRef.value?.focus()
+  } else if (loginState.loginForm.password === "") {
+    passwordRef.value?.focus()
+  }
+})
 </script>
 
 <style lang="scss">
