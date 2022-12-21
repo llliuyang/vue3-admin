@@ -121,6 +121,12 @@ const constantRoutes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: 'login' */ "@/views/login/index.vue")
+  },
+  {
     path: "/redirect", // 重定向路由
     component: Layout,
     meta: {
