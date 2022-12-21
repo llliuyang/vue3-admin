@@ -16,6 +16,8 @@ import initSvgIcon from "@/icons/index"
 // 注册element-plus
 import installElementPlus from "./plugins/element"
 
+import "./permission"
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
