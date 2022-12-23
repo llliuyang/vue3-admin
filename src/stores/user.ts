@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { login as loginApi } from "@/api/user"
-import { setToken } from "@/utils/auth"
+import { removeToken, setToken } from "@/utils/auth"
+import { useTagsView } from "@/stores/tagsView"
 
 export interface IUserInfo {
   username: string
@@ -26,8 +27,19 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  const { delAllViews } = useTagsView()
+  const logout = () => {
+    // 清空store里的token
+    state.token = ""
+    // 清空本地缓存的token
+    removeToken()
+    // 清除所有标签页
+    delAllViews()
+  }
+
   return {
     state,
-    login
+    login,
+    logout
   }
 })

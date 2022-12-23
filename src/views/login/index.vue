@@ -92,6 +92,7 @@ const { loginForm, loginRules } = toRefs(loginState)
 const userStore = useUserStore()
 const router = useRouter()
 const { redirect, otherQuery } = useRouteQuery()
+const { proxy } = getCurrentInstance()!
 
 const handleLogin = () => {
   loginFormRef.value?.validate(async (valid) => {
@@ -99,6 +100,7 @@ const handleLogin = () => {
       loading.value = true
       try {
         await userStore.login(loginState.loginForm)
+        proxy?.$message.success("登录成功！")
         router.push({ path: redirect.value || "/", query: otherQuery.value })
       } finally {
         loading.value = false

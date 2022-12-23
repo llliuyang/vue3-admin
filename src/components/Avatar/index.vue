@@ -18,6 +18,8 @@
 
 <script lang="ts" setup>
 import avatar from "@/assets/vue.svg"
+import { useUserStore } from "@/stores/user"
+
 const avatarMenu = [
   {
     to: "/",
@@ -28,8 +30,14 @@ const avatarMenu = [
     label: "个人设置"
   }
 ]
+
+const store = useUserStore()
+const { proxy } = getCurrentInstance()!
+
 const logout = () => {
-  console.log("logout")
+  store.logout()
+  proxy?.$message.success("退出登录")
+  window.location.reload()
 }
 </script>
 
