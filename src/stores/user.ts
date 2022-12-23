@@ -27,12 +27,16 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
-  const { delAllViews } = useTagsView()
-  const logout = () => {
+  const resetToken = () => {
     // 清空store里的token
     state.token = ""
     // 清空本地缓存的token
     removeToken()
+  }
+
+  const { delAllViews } = useTagsView()
+  const logout = () => {
+    resetToken()
     // 清除所有标签页
     delAllViews()
   }
@@ -40,6 +44,7 @@ export const useUserStore = defineStore("user", () => {
   return {
     state,
     login,
-    logout
+    logout,
+    resetToken
   }
 })
