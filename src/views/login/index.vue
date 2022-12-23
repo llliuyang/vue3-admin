@@ -58,6 +58,7 @@
 <script lang="ts" setup>
 import { FormInstance } from "element-plus"
 import { useUserStore } from "@/stores/user"
+import useRouteQuery from "@/hooks/useRouteQuery"
 
 const loading = ref(false)
 const loginFormRef = ref<FormInstance | null>(null)
@@ -90,6 +91,7 @@ const loginState = reactive({
 const { loginForm, loginRules } = toRefs(loginState)
 const userStore = useUserStore()
 const router = useRouter()
+const { redirect, otherQuery } = useRouteQuery()
 
 const handleLogin = () => {
   loginFormRef.value?.validate(async (valid) => {
@@ -97,7 +99,7 @@ const handleLogin = () => {
       loading.value = true
       try {
         await userStore.login(loginState.loginForm)
-        router.push({ path: "/" })
+        router.push({ path: redirect.value || "/", query: otherQuery.value })
       } finally {
         loading.value = false
       }
